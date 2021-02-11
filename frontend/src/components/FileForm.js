@@ -11,16 +11,21 @@ const FileForm = ({ setError, setSuccess, setLoading }) => {
     setSuccess(false);
 
     const inputFiles = Array.from(e.currentTarget.files);
-    const fileContents = await Promise.all(
-      Object.values(inputFiles).map(readFileContents)
-    );
 
-    const filesArray = inputFiles.map((file, i) => ({
-      name: file.name,
-      emails: fileContents[i],
-    }));
+    try {
+      const fileContents = await Promise.all(
+        Object.values(inputFiles).map(readFileContents)
+      );
 
-    setFiles(filesArray);
+      const filesArray = inputFiles.map((file, i) => ({
+        name: file.name,
+        emails: fileContents[i],
+      }));
+
+      setFiles(filesArray);
+    } catch (err) {
+      setError({ message: err, emails: [] });
+    }
   };
 
   const handleSubmit = async (e) => {

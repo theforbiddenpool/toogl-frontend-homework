@@ -4,6 +4,9 @@ function readFileContents(file) {
     fr.onloadend = () => {
       resolve(fr.result.split('\n').filter((email) => email));
     };
+    fr.onerror = () => {
+      reject('There was an error reading the file');
+    };
     fr.readAsText(file);
   });
 }
