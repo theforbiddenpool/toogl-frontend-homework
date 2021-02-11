@@ -19,11 +19,13 @@ function App() {
       {error.message && (
         <div className="message">
           There was an error: {error.message}
-          <ul>
-            {error.emails.map((email) => (
-              <li key={email}>{email}</li>
-            ))}
-          </ul>
+          {error.emails.length > 0 && (
+            <ul>
+              {error.emails.map((email) => (
+                <li key={email}>{email}</li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
     </div>
